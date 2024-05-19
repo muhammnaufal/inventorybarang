@@ -50,10 +50,11 @@
                                         <td>{{ $barang->stok }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('barang.destroy', $barang->id) }}" method="POST">
-                                                <a href="{{ route('barang.show', $barang->id) }}"
+                                                action="{{ route('barang.destroy', $barang->kode_barang) }}"
+                                                method="POST">
+                                                <a href="{{ route('barang.show', $barang->kode_barang) }}"
                                                     class="btn btn-sm btn-dark">SHOW</a>
-                                                <a href="{{ route('barang.edit', $barang->id) }}"
+                                                <a href="{{ route('barang.edit', $barang->kode_barang) }}"
                                                     class="btn btn-sm btn-primary">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')

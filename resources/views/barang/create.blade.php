@@ -23,14 +23,6 @@
                         <form action="{{ route('barang.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="kode_barang">Kode Barang</label>
-                                <input type="text" name="kode_barang" class="form-control" id="kode_barang"
-                                    placeholder="Enter Nama Barang">
-                                @error('kode_barang')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                                 <div>
                                     <div class="form-group">
                                         <label for="nama_barang">Nama Barang</label>
@@ -97,8 +89,8 @@
                                             </div>
                                             <div>
                                                 <label for="stok">Stok</label>
-                                                <input type="text" name="stok" class="form-control"
-                                                    id="stok" placeholder="Enter Stok">
+                                                <input type="text" name="stok" class="form-control" id="stok"
+                                                    placeholder="Enter Stok">
                                                 @error('stok')
                                                     <div class="alert alert-danger mt-2">
                                                         {{ $message }}

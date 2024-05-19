@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->id('kode_barang');
             $table->string('nama_barang', 150);
-            $table->enum('unit',['Pcs', 'Buah', 'Lembar']);
+            $table->enum('unit', ['Pcs', 'Buah', 'Lembar']);
             $table->string('ukuran', 150);
             $table->string('warna', 50);
             $table->string('jenis', 50);
             $table->integer('harga_satuan');
             $table->integer('stok');
+            $table->timestamps();
         });
 
         Schema::create('penerimaan_barang', function (Blueprint $table) {
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->text('alamat');
             $table->unsignedBigInteger('kode_barang');
             $table->integer('quantity');
+            $table->timestamps();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
         });
 
@@ -36,6 +38,7 @@ return new class extends Migration
             $table->string('tujuan', 150);
             $table->integer('quantity');
             $table->unsignedBigInteger('kode_barang');
+            $table->timestamps();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
         });
 
@@ -46,6 +49,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('quantity');
             $table->date('tgl_simpan');
+            $table->timestamps();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
         });
 
@@ -54,18 +58,16 @@ return new class extends Migration
             $table->string('nama_supplier', 150);
             $table->string('telepon', 15);
             $table->text('alamat');
+            $table->timestamps();
         });
 
         Schema::create('order_barang', function (Blueprint $table) {
             $table->date('tanggal');
             $table->unsignedBigInteger('kode_supplier');
             $table->integer('ppn');
+            $table->timestamps();
             $table->foreign('kode_supplier')->references('kode_supplier')->on('supplier');
         });
-
-
-
-
     }
 
     /**

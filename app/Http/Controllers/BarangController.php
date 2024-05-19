@@ -24,9 +24,8 @@ class BarangController extends Controller
 
         //validate form
         $request->validate([
-            'kode_barang' =>'required',
             'nama_barang'      => 'required',
-            'pcs'      => 'required|in:pcs,buah,lembar',
+            'unit'      => 'required|in:pcs,buah,lembar',
             'ukuran'      => 'required',
             'warna'      => 'required',
             'jenis'      => 'required',
@@ -34,67 +33,65 @@ class BarangController extends Controller
             'stok'      => 'required|numeric',
         ]);
 
+
         Barang::create([
-            'kode_barang'       => $request->kode_barang,
-            'nama_barang'       =>$request->nama_barang,
-            'pcs'               =>$request->pcs,
-            'ukuran'            =>$request->ukuran,
-            'warna'             =>$request->warna,
-            'jenis'             =>$request->jenis,
-            'harga_satuan'      =>$request->harga_satuan,
-            'stok'              =>$request->stok,
+            'nama_barang'       => $request->nama_barang,
+            'unit'               => $request->unit,
+            'ukuran'            => $request->ukuran,
+            'warna'             => $request->warna,
+            'jenis'             => $request->jenis,
+            'harga_satuan'      => $request->harga_satuan,
+            'stok'              => $request->stok,
 
         ]);
         //redirect to index
         return redirect()->route('barang.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    public function show(string $id): View
+    public function show($kode_barang): View
     {
-        $dataBarang = Barang::findOrFail($id);
+        $dataBarang = Barang::findOrFail($kode_barang);
 
         return view('barang.show', compact('dataBarang'));
     }
 
-    public function edit(string $id): View
+    public function edit($kode_barang): View
     {
-        $dataBarang = Barang::findOrFail($id);
+        $dataBarang = Barang::findOrFail($kode_barang);
         return view('barang.edit', compact('dataBarang'));
     }
 
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $kode_barang): RedirectResponse
     {
         //validate form
         $request->validate([
-            'kode_barang'       => $request->kode_barang,
-            'nama_barang'       =>$request->nama_barang,
-            'pcs'               =>$request->pcs,
-            'ukuran'            =>$request->ukuran,
-            'warna'             =>$request->warna,
-            'jenis'             =>$request->jenis,
-            'harga_satuan'      =>$request->harga_satuan,
-            'stok'              =>$request->stok,
+            'nama_barang'      => 'required',
+            'unit'      => 'required|in:pcs,buah,lembar',
+            'ukuran'      => 'required',
+            'warna'      => 'required',
+            'jenis'      => 'required',
+            'harga_satuan'      => 'required|numeric',
+            'stok'      => 'required|numeric',
         ]);
 
-        $dataBarang = Barang::findOrFail($id);
+        $dataBarang = Barang::findOrFail($kode_barang);
         $dataBarang->update([
-            'kode_barang'       => $request->kode_barang,
-            'nama_barang'       =>$request->nama_barang,
-            'pcs'               =>$request->pcs,
-            'ukuran'            =>$request->ukuran,
-            'warna'             =>$request->warna,
-            'jenis'             =>$request->jenis,
-            'harga_satuan'      =>$request->harga_satuan,
-            'stok'              =>$request->stok,
+            'nama_barang'       => $request->nama_barang,
+            'unit'               => $request->unit,
+            'ukuran'            => $request->ukuran,
+            'warna'             => $request->warna,
+            'jenis'             => $request->jenis,
+            'harga_satuan'      => $request->harga_satuan,
+            'stok'              => $request->stok,
         ]);
 
         return redirect()->route('barang.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy($kode_barang): RedirectResponse
     {
-        $dataBarang = Barang::findOrFail($id);
+        $dataBarang = Barang::findOrFail($kode_barang);
         $dataBarang->delete();
         return redirect()->route('barang.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }

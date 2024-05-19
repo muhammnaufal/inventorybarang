@@ -10,6 +10,7 @@ class Barang extends Model
     use HasFactory;
 
     protected $table = "barang";
+    protected $primaryKey = "kode_barang";
 
     protected $fillable = [
         'kode_barang',
@@ -21,5 +22,4 @@ class Barang extends Model
         'harga_satuan',
         'stok'
     ];
-
 }
