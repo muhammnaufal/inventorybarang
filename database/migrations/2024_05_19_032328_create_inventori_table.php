@@ -45,10 +45,7 @@ return new class extends Migration
         Schema::create('order_detail', function (Blueprint $table) {
             $table->integer('no_po');
             $table->unsignedBigInteger('kode_barang');
-            $table->string('nama_barang');
-            $table->integer('harga');
             $table->integer('quantity');
-            $table->date('tgl_simpan');
             $table->timestamps();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang');
         });
@@ -62,6 +59,7 @@ return new class extends Migration
         });
 
         Schema::create('order_barang', function (Blueprint $table) {
+            $table->id('no_po');
             $table->date('tanggal');
             $table->unsignedBigInteger('kode_supplier');
             $table->integer('ppn');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -11,7 +12,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $dataSupplier = Supplier::latest()->paginate(10);
+        return view('supplier.index', compact('dataSupplier'));
     }
 
     /**
@@ -19,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
     /**
@@ -27,7 +29,22 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate form
+        $request->validate([
+            'nama_supplier'      => 'required',
+            'telepon'      => 'required',
+            'alamat'      => 'required',
+        ]);
+
+
+        Supplier::create([
+            'nama_supplier'       => $request->nama_supplier,
+            'telepon'               => $request->telepon,
+            'alamat'            => $request->alamat,
+
+        ]);
+        //redirect to index
+        return redirect()->route('supplier.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -35,7 +52,9 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $dataSupplier = Supplier::findOrFail($id);
+
+        return view('supplier.show', compact('dataSupplier'));
     }
 
     /**
@@ -43,7 +62,8 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dataSupplier = Supplier::findOrFail($id);
+        return view('supplier.edit', compact('dataSupplier'));
     }
 
     /**
@@ -51,7 +71,22 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validate form
+        $request->validate([
+            'nama_supplier'      => 'required',
+            'telepon'      => 'required',
+            'alamat'      => 'required',
+        ]);
+
+        $dataSupplier = Supplier::findOrFail($id);
+        $dataSupplier->update([
+            'nama_supplier'       => $request->nama_supplier,
+            'telepon'               => $request->telepon,
+            'alamat'            => $request->alamat,
+
+        ]);
+        //redirect to index
+        return redirect()->route('supplier.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -59,6 +94,8 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dataSupplier = Supplier::findOrFail($id);
+        $dataSupplier->delete();
+        return redirect()->route('supplier.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
